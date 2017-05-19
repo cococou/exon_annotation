@@ -1,28 +1,13 @@
-#gene	exon
-egfr	2,3,18,19,20,21
-eraf	11,15
-kit	2,3,6,11,13,17
-kras	2,3,4
-nras	2,3,4
-map2k1	3
-mek1	3
-met	1,2,16,17,14,18,20
-pik3ca	9,20
-erbb2	3,12,20,23,25
-her2	3,12,20,23,25
-ret	
-ccdc6
-ncoa4
-kif5b
-lrig3
-ros1
-gopc
-tpm3
-ezr
-sdc4
-slc34a2
-cd74
-alk
-eml4
-strn
-tfg
+egfr    2,3,18,19,20,21 NM_005228
+braf    11,15 NM_004333
+kit     2,3,6,11,13,17 NM_000222
+kras    2,3,4   NM_033360
+nras    2,3,4   NM_002524
+map2k1  3       NM_002755
+mek1    3       NM_002755
+met     1,2,16,17,14,18,20      NM_000245
+pik3ca  9,20    NM_006218
+erbb2   3,12,20,23,25   NM_004448
+her2    3,12,20,23,25   NM_004448
+ret     11,16   NM_020975
+alk     22,23,25        NM_004304
