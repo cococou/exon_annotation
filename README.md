@@ -1,4 +1,4 @@
-##exon file
+## exon file
 get annotated exon file from ucsc
 download website: http://hgdownload.soe.ucsc.edu/goldenPath/hg19/database/refGene.txt
 
