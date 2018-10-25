@@ -3,6 +3,8 @@ import os
 import sys
 import pandas as pd
 import numpy as np
+import argparse
+
 
 def get_target(f):
     target = []
@@ -31,9 +33,14 @@ def ssp(xx):
           )
     return df
 
-def main(NM_ID=None,ref_file=None):
-    ID = get_target(NM_ID)
-    df = xopen_p(ref_file).query("NMID in @ID")
+def main(NM_ID=None,GENE=None,ref_file=None):
+    if NM_ID:
+        ID = get_target(NM_ID)
+        df = xopen_p(ref_file).query("NMID in @ID")
+    if GENE:
+        ID = get_target(GENE)
+        df = xopen_p(ref_file).query("GENE in @ID")
+
     #df = df.apply(ssp,axis =1)
     for i in range(0,df.shape[0]):
         if i == 0:
@@ -41,14 +48,22 @@ def main(NM_ID=None,ref_file=None):
         else:
             dff = pd.concat([ssp(df.iloc[i]),dff],)
     dff.to_csv(os.path.basename(NM_ID)+".anno",sep="\t",columns=['CHROM',"ST","ED","NMID","GENE","ORI"],header=None,index=None)
+    # a = set(ID)
+    # b = set(dff.GENE)
+    # print(a - b)
+
+def GetPar():
+    parser = argparse.ArgumentParser()
+    parser.add_argument("-i", "--nmid", help="nm id file", default=None)
+    parser.add_argument("-g", "--gene", help="gene list file", default=None)
+    parser.add_argument("-r","--ref_file",help="ucsc refGene.txt.gz",default="/soft/humandb/UCSC/refGene.txt.gz")
+    args = parser.parse_args()
+    if not (args.gene or args.nmid):
+        parser.print_help()
+        exit(1)
+    return args
+
 
 if __name__ == "__main__":
-    try:
-        NM_ID,ref_file = sys.argv[1:]
-    except:
-        print("python3 script [NM_ID list file] [refGene.txt.gz]")
-        exit()
-    main(NM_ID=NM_ID,ref_file=ref_file)
-# f = "NM_ID.txt"
-# ref_file = "/soft/humandb/UCSC/refGene.txt.gz"
-# main(NM_ID=f,ref_file=ref_file)
+    par = GetPar()
+    main(NM_ID=par.nmid,GENE=par.gene,ref_file=par.ref_file)
